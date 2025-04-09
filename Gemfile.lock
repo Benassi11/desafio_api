@@ -103,6 +103,8 @@ GEM
       rails (>= 4.2.0, < 8.1)
     diff-lcs (1.6.1)
     drb (2.2.1)
+    enumerate_it (4.0.0)
+      activesupport (>= 6.0.0)
     erubi (1.13.1)
     factory_bot (6.5.1)
       activesupport (>= 6.1.0)
@@ -305,6 +307,7 @@ DEPENDENCIES
   debug
   devise
   devise_token_auth
+  enumerate_it
   factory_bot_rails
   pg (~> 1.1)
   puma (>= 5.0)

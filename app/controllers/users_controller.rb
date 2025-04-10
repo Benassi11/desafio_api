@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  #before_action :authenticate_user!, except: [:index, :show]
+  before_action :authorize_user, except: [:create]
+
   def index
     @users = User.all
     render json: @users
@@ -10,6 +11,16 @@ class UsersController < ApplicationController
     render json: @user
   end
 
+  def create
+    authorize current_user
+    user = User.new(user_params)
+
+    if user.save
+      render json: user, status: :created, location: user
+    else
+      render json: user.errors, status: :unprocessable_entity
+    end
+  end
 
   def update
     if @user.update(user_params)
@@ -25,12 +36,16 @@ class UsersController < ApplicationController
   
 
   private
+    def authorize_user
+      authorize @user
+    end
+
     def set_user
       @user = User.find(params[:id])
     end
 
     def user_params
-      params.require(:user).permit(:email, :password, :status, :is_admin, :name, :nickname)
+      params.permit(:email, :password, :password_confirmation, :status, :is_admin, :name, :nickname)
     end
 
 end

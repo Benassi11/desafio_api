@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show update destroy ]
   #before_action :authenticate_user!, except: [:index, :show]
+  #before_action :authorize_comment, except: [:index, :show]
 
   # GET /comments
   def index
@@ -40,6 +41,10 @@ class CommentsController < ApplicationController
   end
 
   private
+    def authorize_comment
+      authorize @comment
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
       @comment = Comment.find(params[:id])

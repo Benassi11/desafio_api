@@ -9,12 +9,12 @@ class TasksController < ApplicationController
     @tasks = @tasks.where(status: params[:status]) if params[:status].present?
     @tasks = @tasks.where(user_id: params[:user_id]) if params[:user_id].present?
   
-    render json: @tasks.as_json(methods: :status_humanize)
+    render json: @tasks
   end
 
   # GET /tasks/1
   def show
-    render json: @task.as_json(methods: :status_humanize)
+    render json: @task
   end
 
   # POST /tasks
@@ -50,6 +50,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:title, :description, :status, :estimated_time, :user_id, :images)
+      params.require(:task).permit(:title, :description, :status, :estimated_time, :user_id,  attachments: [])
     end
 end

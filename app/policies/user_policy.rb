@@ -8,21 +8,28 @@ class UserPolicy < ApplicationPolicy
   end
 
     def index?
-      user&.is_admin? 
+      verify_is_admin
     end
     def show?
-      user&.is_admin? 
+      verify_is_admin
     end
 
     def create?
-      user&.is_admin? 
+      verify_is_admin 
     end
 
     def update?
-      user&.is_admin? 
+      verify_is_admin 
     end
 
     def destroy?
+      verify_is_admin 
+    end
+
+    private
+
+    def verify_is_admin
       user&.is_admin? 
     end
+
 end

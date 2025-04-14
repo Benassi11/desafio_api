@@ -7,11 +7,16 @@ class CommentPolicy < ApplicationPolicy
     # end
   end
     def update?
-      user&.is_admin? || user&.id == record.user_id
+     verify_user 
     end
 
     def destroy?
+     verify_user 
+    end
+
+    private
+
+    def verify_user
       user&.is_admin? || user&.id == record.user_id
     end
-end
-
+  end

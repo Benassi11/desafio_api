@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authorize_user, except: [:create]
+  before_action :authorize_current_user
 
   def index
     @users = User.all
@@ -12,7 +12,6 @@ class UsersController < ApplicationController
   end
 
   def create
-    authorize current_user
     user = User.new(user_params)
 
     if user.save
@@ -36,8 +35,8 @@ class UsersController < ApplicationController
   
 
   private
-    def authorize_user
-      authorize @user
+    def authorize_current_user
+      authorize current_user
     end
 
     def set_user

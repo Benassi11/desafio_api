@@ -56,7 +56,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_09_171554) do
   create_table "tasks", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.integer "status"
+    t.integer "status", default: 0
     t.date "estimated_time"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false

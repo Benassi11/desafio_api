@@ -10,7 +10,6 @@ RSpec.describe TasksController, type: :routing do
       expect(get: "/tasks/1").to route_to("tasks#show", id: "1")
     end
 
-
     it "routes to #create" do
       expect(post: "/tasks").to route_to("tasks#create")
     end

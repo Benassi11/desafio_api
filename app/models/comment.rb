@@ -6,4 +6,5 @@ class Comment < ApplicationRecord
 
     validates :task, presence: true
     validates :user, presence: true
+    validates :description, presence: true
   end

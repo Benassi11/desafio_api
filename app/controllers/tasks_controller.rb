@@ -1,15 +1,15 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show update destroy ]
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :authorize_current_user, except: [:index, :show, :create]
+  before_action :authenticate_user!, except: [ :index, :show ]
+  before_action :authorize_current_user, except: [ :index, :show, :create ]
 
   # GET /tasks
   def index
     @tasks = Task.all
-  
+
     @tasks = @tasks.where(status: params[:status]) if params[:status].present?
     @tasks = @tasks.where(user_id: params[:user_id]) if params[:user_id].present?
-  
+
     render json: @tasks
   end
 

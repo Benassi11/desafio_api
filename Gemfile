@@ -32,18 +32,22 @@ gem "image_processing", "~> 1.2"
 # customizing the output returned by the API using ActiveModel::Serializer.
 gem "active_model_serializers"
 
-#EnumerateIt helps you declare and use enumerations in a very simple and flexible way.
-gem 'enumerate_it'
+# EnumerateIt helps you declare and use enumerations in a very simple and flexible way.
+gem "enumerate_it"
 
-#Use devise for user authentication
+# Use devise for user authentication
 gem "devise"
-gem 'devise_token_auth'
+gem "devise_token_auth"
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 gem "rack-cors"
 
 # Faker is used to generate fake for tests
-gem "faker" 
+gem "faker"
+
+# Integrates Swagger UI for interactive API documentation
+gem "rswag-api"
+gem "rswag-ui"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -52,17 +56,15 @@ group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
 
-  #A powerful testing framework for Rails applications
-  gem 'rspec-rails'
+  # A powerful testing framework for Rails applications
+  gem "rspec-rails"
 
-  #Provides a clean way to create test data for specs
-  gem 'factory_bot_rails'
+  # Provides a clean way to create test data for specs
+  gem "factory_bot_rails"
 
-  #Integrates Swagger UI for interactive API documentation
-  gem 'rswag'
-  
+  # Integrates Swagger UI for interactive API documentation
+  gem "rswag-specs"
+
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 end
-
-

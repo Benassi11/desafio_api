@@ -3,9 +3,33 @@ openapi: 3.0.1
 info:
   title: API V1
   version: v1
-paths: {}
+paths:
+  "/auth/sign_in":
+    post:
+      summary: Logs in the user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '200':
+          description: User logged in successfully
+        '401':
+          description: Invalid login credentials
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - email
+              - password
 servers:
-- url: https://{defaultHost}
+- url: http://{defaultHost}
   variables:
     defaultHost:
-      default: www.example.com
+      default: localhost:3000

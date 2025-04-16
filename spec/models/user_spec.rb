@@ -1,33 +1,32 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  
   context "validating attributes" do
     it 'checking valid attributes user' do
-      user = build(:user )
+      user = build(:user)
       expect(user).to be_valid
     end
 
     it 'checking valid attributes user_is_admin' do
-      user = build(:user, :user_admin )
+      user = build(:user, :user_admin)
       expect(user).to be_valid
     end
   end
 
   describe "Email" do
-    context "when email is present" do 
+    context "when email is present" do
       it 'returns true when save user' do
         user = build(:user, email: "exemplo@exemplo.com.br")
         expect(user.save).to eq(true)
       end
     end
-  
-    context "when email is not present" do 
+
+    context "when email is not present" do
       it 'returns false when save user' do
         user = build(:user, email: nil)
         expect(user.save).to eq(false)
       end
-  
+
       it 'returns an error message' do
         user = build(:user, email: nil)
         user.save
@@ -35,7 +34,7 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context "unique email" do 
+    context "unique email" do
       it 'checking is invalid with a duplicate email' do
         create(:user, email: 'test@example.com')
         user = build(:user, email: 'test@example.com')
@@ -45,19 +44,19 @@ RSpec.describe User, type: :model do
   end
 
   describe "password" do
-    context "when password is present" do 
+    context "when password is present" do
       it 'returns true when save user' do
         user = build(:user, password: "123123")
         expect(user.save).to eq(true)
       end
     end
-  
-    context "when password is not present" do 
+
+    context "when password is not present" do
       it 'returns false when save user' do
         user = build(:user, password: nil)
         expect(user.save).to eq(false)
       end
-  
+
       it 'returns an error message' do
         user = build(:user, password: nil)
         user.save
@@ -72,19 +71,19 @@ RSpec.describe User, type: :model do
       end
 
       it 'checking does not authenticate with incorrect password' do
-        user = build(:user, password: '123123', password_confirmation: '321321' )
+        user = build(:user, password: '123123', password_confirmation: '321321')
         user.save
         expect(user.save).to eq(false)
       end
 
       it 'checking does not authenticate with incorrect password' do
-        user = build(:user, password: '123123', password_confirmation: '321321' )
+        user = build(:user, password: '123123', password_confirmation: '321321')
         user.save
         expect(user.errors.messages[:password_confirmation]).to include("doesn't match Password")
-      end  
+      end
     end
   end
-  describe "User_admin" do 
+  describe "User_admin" do
     context "when admin flag is false or true" do
       it 'flag false' do
         user = create(:user, is_admin: false)
@@ -98,5 +97,3 @@ RSpec.describe User, type: :model do
     end
   end
 end
-
-

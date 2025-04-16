@@ -1,10 +1,11 @@
 class TaskAttachmentsController < ApplicationController
   before_action :authorize_current_user
+  before_action :authenticate_user!
 
     def destroy
       task = Task.find(params[:task_id])
       attachment = task.attachments.find(params[:id])
-  
+
       attachment.purge
     end
 
@@ -13,5 +14,4 @@ class TaskAttachmentsController < ApplicationController
     def authorize_current_user
       authorize current_user
     end
-
-  end
+end

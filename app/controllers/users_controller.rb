@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [ :show, :update, :destroy ]
+  before_action :authenticate_user!
   before_action :authorize_current_user
 
   def index
@@ -28,11 +29,11 @@ class UsersController < ApplicationController
       render json: @user.errors, status: :unprocessable_entity
     end
   end
-  
+
   def destroy
     @user.destroy!
   end
-  
+
 
   private
     def authorize_current_user
@@ -46,5 +47,4 @@ class UsersController < ApplicationController
     def user_params
       params.permit(:email, :password, :password_confirmation, :status, :is_admin, :name, :nickname)
     end
-
 end

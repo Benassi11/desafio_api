@@ -28,6 +28,193 @@ paths:
               required:
               - email
               - password
+  "/users":
+    get:
+      summary: User list
+      tags:
+      - Users
+      parameters:
+      - name: access-token
+        in: header
+        description: Token
+        schema:
+          type: string
+      - name: client
+        in: header
+        description: Client ID
+        schema:
+          type: string
+      - name: uid
+        in: header
+        description: User ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: User list returned successfully
+        '401':
+          description: No token provided
+        '403':
+          description: non-admin user
+    post:
+      summary: Create user
+      tags:
+      - Users
+      parameters:
+      - name: access-token
+        in: header
+        description: Token
+        schema:
+          type: string
+      - name: client
+        in: header
+        description: Client ID
+        schema:
+          type: string
+      - name: uid
+        in: header
+        description: User ID
+        schema:
+          type: string
+      responses:
+        '201':
+          description: User create successfully
+        '401':
+          description: No token provided
+        '403':
+          description: non-admin user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+              required:
+              - email
+              - password
+              - password_confirmation
+  "/users/{id}":
+    get:
+      summary: User
+      tags:
+      - Users
+      parameters:
+      - name: access-token
+        in: header
+        description: Token
+        schema:
+          type: string
+      - name: client
+        in: header
+        description: Client ID
+        schema:
+          type: string
+      - name: uid
+        in: header
+        description: User ID
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: user_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: User returned successfully
+        '401':
+          description: No token provided
+        '403':
+          description: non-admin user
+    patch:
+      summary: Update user
+      tags:
+      - Users
+      parameters:
+      - name: access-token
+        in: header
+        description: Token
+        schema:
+          type: string
+      - name: client
+        in: header
+        description: Client ID
+        schema:
+          type: string
+      - name: uid
+        in: header
+        description: User ID
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: user_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: User update successfully
+        '401':
+          description: No token provided
+        '403':
+          description: non-admin user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                name:
+                  type: string
+                nickname:
+                  type: string
+                is_admin:
+                  type: boolean
+    delete:
+      summary: delete user
+      tags:
+      - Users
+      parameters:
+      - name: access-token
+        in: header
+        description: Token
+        schema:
+          type: string
+      - name: client
+        in: header
+        description: Client ID
+        schema:
+          type: string
+      - name: uid
+        in: header
+        description: User ID
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: user_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: delete user successfully
+        '401':
+          description: No token provided
+        '403':
+          description: non-admin user
 servers:
 - url: http://{defaultHost}
   variables:

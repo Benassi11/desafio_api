@@ -4,6 +4,353 @@ info:
   title: API V1
   version: v1
 paths:
+  "/comments":
+    get:
+      summary: comment list
+      tags:
+      - Comments
+      responses:
+        '200':
+          description: comment list successfully
+    post:
+      summary: Create comments
+      tags:
+      - Comments
+      parameters:
+      - name: access-token
+        in: header
+        description: Token
+        schema:
+          type: string
+      - name: client
+        in: header
+        description: Client ID
+        schema:
+          type: string
+      - name: uid
+        in: header
+        description: User ID
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Task comment successfully
+        '401':
+          description: No token provided
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                user_id:
+                  type: integer
+                task_id:
+                  type: integer
+                parent_id:
+                  type: integer
+                replies:
+                  type: array
+                  items:
+                    type: object
+              required:
+              - description
+              - user_id
+              - task_id
+  "/comments/{id}":
+    get:
+      summary: Show comment
+      tags:
+      - Comments
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: comment ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: comment show successfully
+    patch:
+      summary: Update comments
+      tags:
+      - Comments
+      parameters:
+      - name: access-token
+        in: header
+        description: Token
+        schema:
+          type: string
+      - name: client
+        in: header
+        description: Client ID
+        schema:
+          type: string
+      - name: uid
+        in: header
+        description: User ID
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: Comment ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Comment updated successfully - User admin
+        '401':
+          description: No token provided
+        '403':
+          description: Comment update failure - User is not owner or admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                user_id:
+                  type: integer
+                task_id:
+                  type: integer
+                parent_id:
+                  type: integer
+                replies:
+                  type: array
+                  items:
+                    type: object
+              required:
+              - description
+    delete:
+      summary: delete comment
+      tags:
+      - Comments
+      parameters:
+      - name: access-token
+        in: header
+        description: Token
+        schema:
+          type: string
+      - name: client
+        in: header
+        description: Client ID
+        schema:
+          type: string
+      - name: uid
+        in: header
+        description: User ID
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: Comment ID
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Delete comment successfully - User admin
+        '401':
+          description: No token provided
+        '403':
+          description: Comment delete failure - User is not owner or admin
+  "/tasks/{task_id}/attachments/{id}":
+    delete:
+      summary: Delete attachments task
+      tags:
+      - Tasks/attachments
+      parameters:
+      - name: access-token
+        in: header
+        required: true
+        description: Token
+        schema:
+          type: string
+      - name: client
+        in: header
+        required: true
+        description: Client ID
+        schema:
+          type: string
+      - name: uid
+        in: header
+        required: true
+        description: User ID
+        schema:
+          type: string
+      - name: task_id
+        in: path
+        required: true
+        description: Task ID
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: Attachment ID
+        schema:
+          type: string
+      responses:
+        '204':
+          description: task proprietor user
+        '403':
+          description: User Not admin
+  "/tasks":
+    get:
+      summary: Task list
+      tags:
+      - Task
+      responses:
+        '200':
+          description: Task list successfully
+    post:
+      summary: Create task
+      tags:
+      - Task
+      parameters:
+      - name: access-token
+        in: header
+        description: Token
+        schema:
+          type: string
+      - name: client
+        in: header
+        description: Client ID
+        schema:
+          type: string
+      - name: uid
+        in: header
+        description: User ID
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Task created successfully
+        '401':
+          description: No token provided
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                status:
+                  type: integer
+                estimated_time:
+                  type: string
+                user_id:
+                  type: integer
+              required:
+              - title
+              - description
+              - user_id
+  "/tasks/{id}":
+    get:
+      summary: Show task
+      tags:
+      - Task
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Task ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Task show successfully
+    patch:
+      summary: Update task
+      tags:
+      - Task
+      parameters:
+      - name: access-token
+        in: header
+        description: Token
+        schema:
+          type: string
+      - name: client
+        in: header
+        description: Client ID
+        schema:
+          type: string
+      - name: uid
+        in: header
+        description: User ID
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: Task ID
+        schema:
+          type: string
+      responses:
+        '401':
+          description: No token provided
+        '200':
+          description: Task updated successfully - User owner
+        '403':
+          description: Task update failure - User is not owner or admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                status:
+                  type: integer
+                estimated_time:
+                  type: string
+                user_id:
+                  type: integer
+    delete:
+      summary: delete task
+      tags:
+      - Task
+      parameters:
+      - name: access-token
+        in: header
+        description: Token
+        schema:
+          type: string
+      - name: client
+        in: header
+        description: Client ID
+        schema:
+          type: string
+      - name: uid
+        in: header
+        description: User ID
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: Task ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Task delete successfully - User admin
+        '401':
+          description: No token provided
+        '403':
+          description: Task delete failure - User is not owner or admin
   "/auth/sign_in":
     post:
       summary: Logs in the user
@@ -101,7 +448,7 @@ paths:
               - password_confirmation
   "/users/{id}":
     get:
-      summary: User
+      summary: returns the user
       tags:
       - Users
       parameters:

@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[ show update destroy ]
-  before_action :authenticate_user!, except: [ :index, :show ]
-  before_action :authorize_current_user, except: [ :index, :show, :create ]
+before_action :authenticate_user!, except: [ :index, :show ]
+before_action :set_task, only: %i[ show update destroy ]
+before_action :authorize_current_user, only: %i[ update destroy ]
 
   # GET /tasks
   def index
@@ -45,7 +45,7 @@ class TasksController < ApplicationController
 
   private
     def authorize_current_user
-      authorize current_user
+      authorize @task
     end
 
     # Use callbacks to share common setup or constraints between actions.

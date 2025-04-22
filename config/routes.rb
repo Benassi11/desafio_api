@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :comments
   resources :tasks
   resources :users
-  delete '/tasks/:task_id/attachments/:id', to: 'task_attachments#destroy'
+  delete '/tasks/:task_id/attachments/:id', to: 'task_attachments#destroy_attachment'
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

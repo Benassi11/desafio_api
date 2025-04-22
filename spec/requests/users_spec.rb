@@ -72,7 +72,7 @@ RSpec.describe "Users", type: :request do
   end
 
   path '/users/{id}' do
-    get 'User' do
+    get 'returns the user' do
       tags 'Users'
       produces 'application/json'
       consumes 'application/json'
@@ -156,10 +156,9 @@ RSpec.describe "Users", type: :request do
 
         run_test!
       end
-    end
-
-    
+    end 
   end
+  
   path '/users/{id}' do
     patch 'Update user' do
       tags 'Users'

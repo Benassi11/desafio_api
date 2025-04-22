@@ -14,6 +14,10 @@ class TaskPolicy < ApplicationPolicy
      verify_user 
     end
 
+    def destroy_attachment?
+      verify_user 
+    end
+    
     private
 
     def verify_user

@@ -10,6 +10,7 @@ class UserPolicy < ApplicationPolicy
     def index?
       verify_is_admin
     end
+
     def show?
       verify_is_admin
     end

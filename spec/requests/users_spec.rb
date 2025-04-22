@@ -11,7 +11,7 @@ RSpec.describe "Users", type: :request do
 
   path '/auth/sign_in' do
     post 'Logs in the user' do
-      tags 'Users'
+      tags 'Sign_in'
       consumes 'application/json'
       produces 'application/json'
       let(:create_user) {create(:user, email:'superexemplo@exemplo.com', password: '123456', password_confirmation: '123456', is_admin:true) }

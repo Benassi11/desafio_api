@@ -355,7 +355,7 @@ paths:
     post:
       summary: Logs in the user
       tags:
-      - Users
+      - Sign_in
       parameters: []
       responses:
         '200':

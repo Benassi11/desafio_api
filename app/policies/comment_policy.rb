@@ -1,5 +1,4 @@
 class CommentPolicy < ApplicationPolicy
-  
   class Scope < ApplicationPolicy::Scope
     # NOTE: Be explicit about which records you allow access to!
     # def resolve
@@ -7,11 +6,11 @@ class CommentPolicy < ApplicationPolicy
     # end
   end
     def update?
-     verify_user 
+     verify_user
     end
 
     def destroy?
-     verify_user 
+     verify_user
     end
 
     private
@@ -19,4 +18,4 @@ class CommentPolicy < ApplicationPolicy
     def verify_user
       user&.is_admin? || user&.id == record.user_id
     end
-  end
+end

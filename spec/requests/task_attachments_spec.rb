@@ -44,9 +44,9 @@ RSpec.describe "/task_attachments", type: :request do
         let(:'access-token') { auth_token['access-token'] }
         let(:client) { auth_token['client'] }
         let(:uid) { auth_token['uid'] }
-      
+
         let(:owner_user) { create(:user, email: 'dono@123teste.com') }
-      
+
         let(:task) do
           create(:task, user: owner_user).tap do |t|
             t.attachments.attach(
@@ -56,7 +56,7 @@ RSpec.describe "/task_attachments", type: :request do
             )
           end
         end
-      
+
         run_test!
       end
 
@@ -66,7 +66,7 @@ RSpec.describe "/task_attachments", type: :request do
         let!(:'access-token') { auth_token['access-token'] }
         let(:client) { auth_token['client'] }
         let(:uid) { auth_token['uid'] }
-      
+
         let(:task) do
           create(:task, user: user_not_admin).tap do |t|
             t.attachments.attach(
@@ -75,7 +75,7 @@ RSpec.describe "/task_attachments", type: :request do
               content_type: 'text/plain'
             )
           end
-        end   
+        end
         run_test!
       end
     end

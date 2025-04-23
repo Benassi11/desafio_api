@@ -13,6 +13,6 @@ class TaskAttachmentsController < ApplicationController
 
     def authorize_current_user
       task = Task.find(params[:task_id])
-      authorize task     
+      authorize task
     end
 end

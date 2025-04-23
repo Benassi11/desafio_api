@@ -17,7 +17,7 @@ before_action :authorize_current_user, only: %i[ update destroy ]
   end
 
   def create
-    task = Task.new(task_params)
+    task = Task.new(create_task_params)
 
     if task.save
       render json: task, status: :created, location: task
@@ -47,7 +47,12 @@ before_action :authorize_current_user, only: %i[ update destroy ]
       @task = Task.find(params[:id])
     end
 
+    def create_task_params
+      debugger
+      task_params.merge(user_id: params[:task][:user_id] || @current_user.id)
+    end
+
     def task_params
-      params.require(:task).permit(:title, :description, :status, :estimated_time, :user_id,  attachments: [])
+      params.require(:task).permit(:title, :description, :status, :estimated_time,  attachments: [])
     end
 end

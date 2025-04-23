@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!, except: [ :index, :show ]
   before_action :set_comment, only: %i[ show update destroy ]
-  before_action :authorize_current_user, only: %i[ update destroy ]  
+  before_action :authorize_current_user, only: %i[ update destroy ]
 
   def index
     @comments = Comment.all
@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    comment = Comment.new(comment_params)
+    comment = Comment.new(create_comments_params)
 
     if comment.save
       render json: comment, status: :created, location: comment
@@ -41,11 +41,15 @@ class CommentsController < ApplicationController
     authorize @comment
   end
 
-    def set_comment
-      @comment = Comment.find(params[:id])
-    end
+  def set_comment
+    @comment = Comment.find(params[:id])
+  end
 
-    def comment_params
-      params.require(:comment).permit(:description, :user_id, :task_id, :parent_id)
-    end
+  def create_comments_params
+    comment_params.merge(user_id: @current_user.id)
+  end
+
+  def comment_params
+    params.require(:comment).permit(:description, :task_id, :parent_id)
+  end
 end

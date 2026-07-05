@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
-before_action :authenticate_user!, except: [ :index, :show ]
-before_action :set_task, only: %i[ show update destroy ]
-before_action :authorize_current_user, only: %i[ update destroy ]
+  before_action :authenticate_user!, except: %i[index show]
+  before_action :set_task, only: %i[show update destroy]
+  before_action :authorize_current_user, only: %i[update destroy]
 
   def index
     @tasks = Task.all
@@ -22,7 +24,7 @@ before_action :authorize_current_user, only: %i[ update destroy ]
     if task.save
       render json: task, status: :created, location: task
     else
-      render json: task.errors, status: :unprocessable_entity
+      render json: task.errors, status: :unprocessable_content
     end
   end
 
@@ -30,7 +32,7 @@ before_action :authorize_current_user, only: %i[ update destroy ]
     if @task.update(task_params)
       render json: @task
     else
-      render json: @task.errors, status: :unprocessable_entity
+      render json: @task.errors, status: :unprocessable_content
     end
   end
 
@@ -39,20 +41,20 @@ before_action :authorize_current_user, only: %i[ update destroy ]
   end
 
   private
-    def authorize_current_user
-      authorize @task
-    end
 
-    def set_task
-      @task = Task.find(params[:id])
-    end
+  def authorize_current_user
+    authorize @task
+  end
 
-    def create_task_params
-      debugger
-      task_params.merge(user_id: params[:task][:user_id] || @current_user.id)
-    end
+  def set_task
+    @task = Task.find(params[:id])
+  end
 
-    def task_params
-      params.require(:task).permit(:title, :description, :status, :estimated_time,  attachments: [])
-    end
+  def create_task_params
+    task_params.merge(user_id: params[:task][:user_id] || @current_user.id)
+  end
+
+  def task_params
+    params.require(:task).permit(:title, :description, :status, :estimated_time, attachments: [])
+  end
 end

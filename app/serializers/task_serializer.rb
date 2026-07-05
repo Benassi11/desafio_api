@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TaskSerializer < ActiveModel::Serializer
   attributes :id, :title, :description, :status, :status_humanize, :estimated_time, :user_id, :attachments_urls
 

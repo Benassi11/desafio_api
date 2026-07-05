@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class CommentsController < ApplicationController
-  before_action :authenticate_user!, except: [ :index, :show ]
-  before_action :set_comment, only: %i[ show update destroy ]
-  before_action :authorize_current_user, only: %i[ update destroy ]
+  before_action :authenticate_user!, except: %i[index show]
+  before_action :set_comment, only: %i[show update destroy]
+  before_action :authorize_current_user, only: %i[update destroy]
 
   def index
     @comments = Comment.all
@@ -19,7 +21,7 @@ class CommentsController < ApplicationController
     if comment.save
       render json: comment, status: :created, location: comment
     else
-      render json: comment.errors, status: :unprocessable_entity
+      render json: comment.errors, status: :unprocessable_content
     end
   end
 
@@ -27,7 +29,7 @@ class CommentsController < ApplicationController
     if @comment.update(comment_params)
       render json: @comment
     else
-      render json: @comment.errors, status: :unprocessable_entity
+      render json: @comment.errors, status: :unprocessable_content
     end
   end
 

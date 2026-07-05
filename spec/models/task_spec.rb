@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Task, type: :model do
-  context "validating attributes" do
+RSpec.describe Task do
+  context 'when validating attributes' do
     it 'checking valid attributes' do
       task = build(:task)
       expect(task).to be_valid
@@ -13,18 +15,18 @@ RSpec.describe Task, type: :model do
     end
   end
 
-  describe "Description" do
-    context "when description is present" do
+  describe 'Description' do
+    context 'when description is present' do
       it 'returns true when save task' do
-        task = build(:task, description: "abc")
-        expect(task.save).to eq(true)
+        task = build(:task, description: 'abc')
+        expect(task.save).to be(true)
       end
     end
 
-    context "when description is not present" do
+    context 'when description is not present' do
       it 'returns false when save task' do
         task = build(:task, description: nil)
-        expect(task.save).to eq(false)
+        expect(task.save).to be(false)
       end
 
       it 'returns an error message' do
@@ -35,23 +37,23 @@ RSpec.describe Task, type: :model do
     end
   end
 
-  describe "Status" do
-    context "when status is present" do
+  describe 'Status' do
+    context 'when status is present' do
       it 'returns true when save task' do
         task = build(:task, status: 1)
-        expect(task.save).to eq(true)
+        expect(task.save).to be(true)
       end
 
       it 'returns false when save task invalid' do
         task = build(:task, status: 9)
-        expect(task.save).to eq(false)
+        expect(task.save).to be(false)
       end
     end
 
-    context "when status is not present" do
+    context 'when status is not present' do
       it 'returns false when save task' do
         task = build(:task, status: nil)
-        expect(task.save).to eq(false)
+        expect(task.save).to be(false)
       end
 
       it 'returns an error message' do
@@ -62,26 +64,25 @@ RSpec.describe Task, type: :model do
     end
   end
 
-
-  describe "user" do
-    context "when user is present" do
+  describe 'user' do
+    context 'when user is present' do
       it 'returns true when save task' do
         user = build(:user)
         task = create(:task, user: user)
-        expect(task.save).to eq(true)
+        expect(task.save).to be(true)
       end
     end
 
-    context "when user is not present" do
+    context 'when user is not present' do
       it 'returns false when save task' do
         task = build(:task, user: nil)
-        expect(task.save).to eq(false)
+        expect(task.save).to be(false)
       end
 
       it 'returns an error message' do
         task = build(:task, user: nil)
         task.save
-        expect(task.errors.messages[:user]).to include("can't be blank")
+        expect(task.errors.messages[:user]).to include('must exist')
       end
     end
   end

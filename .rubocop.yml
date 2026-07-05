@@ -1,8 +1,90 @@
-# Omakase Ruby styling for Rails
-inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+plugins:
+  - rubocop-factory_bot
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-rspec_rails
 
-# Overwrite or add rules to create your own house style
-#
-# # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
-# Layout/SpaceInsideArrayLiteralBrackets:
-#   Enabled: false
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.0
+  Exclude:
+    - "db/schema.rb"
+    - "db/**/*"
+    - "bin/**/*"
+    - "vendor/**/*"
+    - "config/initializers/**/*"
+
+# --- Style ---
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  EnforcedStyle: always
+
+Style/RedundantConstantBase:
+  Enabled: false
+
+# --- Layout ---
+
+Layout/LineLength:
+  Max: 120
+  AllowedPatterns:
+    - "\\A\\s*#" # ignore long comment lines
+
+Layout/EndOfLine:
+  Enabled: false
+
+# --- Metrics ---
+
+Metrics/MethodLength:
+  Max: 30
+
+Metrics/ClassLength:
+  Max: 300
+
+Metrics/ModuleLength:
+  Max: 300
+
+Metrics/BlockLength:
+  Max: 30
+  Exclude:
+    - "spec/**/*"
+
+# --- Rails ---
+
+# Files in app/helpers/export/ are plain Ruby classes, not helper modules, so instance variables are valid.
+Rails/HelperInstanceVariable:
+  Exclude:
+    - "app/helpers/export/**/*"
+
+Rails/Output:
+  Enabled: true
+
+Rails/TimeZone:
+  Enabled: true
+
+Rails/SkipsModelValidations:
+  Exclude:
+    - "spec/**/*" # Allow skipping validations in test files (e.g., using update_columns for setup)
+
+# --- RSpec ---
+
+RSpec/ExampleLength:
+  Max: 15
+
+RSpec/MultipleExpectations:
+  Max: 5
+
+RSpec/NestedGroups:
+  Max: 4
+
+RSpec/ContextWording:
+  Prefixes:
+    - when
+    - with
+    - without
+    - and
+RSpec/MultipleMemoizedHelpers:
+  Max: 10

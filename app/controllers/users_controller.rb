@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
-  before_action :set_user, only: [ :show, :update, :destroy ]
+  before_action :set_user, only: %i[show update destroy]
   before_action :authenticate_user!
   before_action :authorize_current_user
 
@@ -18,7 +20,7 @@ class UsersController < ApplicationController
     if user.save
       render json: user, status: :created, location: user
     else
-      render json: user.errors, status: :unprocessable_entity
+      render json: user.errors, status: :unprocessable_content
     end
   end
 
@@ -26,7 +28,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       render json: @user
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: @user.errors, status: :unprocessable_content
     end
   end
 
@@ -34,17 +36,17 @@ class UsersController < ApplicationController
     @user.destroy!
   end
 
-
   private
-    def authorize_current_user
-      authorize current_user
-    end
 
-    def set_user
-      @user = User.find(params[:id])
-    end
+  def authorize_current_user
+    authorize current_user
+  end
 
-    def user_params
-      params.permit(:email, :password, :password_confirmation, :status, :is_admin, :name, :nickname)
-    end
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def user_params
+    params.permit(:email, :password, :password_confirmation, :status, :is_admin, :name, :nickname)
+  end
 end

@@ -1,5 +1,6 @@
-class UserPolicy < ApplicationPolicy
+# frozen_string_literal: true
 
+class UserPolicy < ApplicationPolicy
   class Scope < ApplicationPolicy::Scope
     # NOTE: Be explicit about which records you allow access to!
     # def resolve
@@ -7,30 +8,29 @@ class UserPolicy < ApplicationPolicy
     # end
   end
 
-    def index?
-      verify_is_admin
-    end
+  def index?
+    verify_is_admin?
+  end
 
-    def show?
-      verify_is_admin
-    end
+  def show?
+    verify_is_admin?
+  end
 
-    def create?
-      verify_is_admin 
-    end
+  def create?
+    verify_is_admin?
+  end
 
-    def update?
-      verify_is_admin 
-    end
+  def update?
+    verify_is_admin?
+  end
 
-    def destroy?
-      verify_is_admin 
-    end
+  def destroy?
+    verify_is_admin?
+  end
 
-    private
+  private
 
-    def verify_is_admin
-      user&.is_admin? 
-    end
-
+  def verify_is_admin?
+    user&.is_admin?
+  end
 end
